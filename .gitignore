@@ -1,0 +1,12 @@
+build/
+distrib/
+CSComponent/bin/
+CSComponent/obj/
+CppComponentProjection/bin/
+CppComponentProjection/obj/
+CSTestEXE/obj/
+CSTestEXE/bin/
+UndockedRegFreeWinRT/
+!UndockedRegFreeWinRT/CMakeLists.txt
+detours/
+!detours/CMakeLists.txt

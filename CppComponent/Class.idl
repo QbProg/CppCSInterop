@@ -1,0 +1,10 @@
+namespace CppComponent
+{
+    [default_interface]
+    runtimeclass Class
+    {
+        Class();
+
+        String Hello();
+    }
+}

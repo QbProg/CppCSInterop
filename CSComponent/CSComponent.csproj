@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+	<Platforms>x64</Platforms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\CppComponentProjection\CppComponentProjection.csproj" SkipGetTargetFrameworkProperties="true" />
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <!-- Workaround for MSB3271 error on processor architecture mismatch -->
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
+  
+
+  <PropertyGroup>
+	<CsWinRTComponent>true</CsWinRTComponent>
+	<PlatformTarget>x64</PlatformTarget>
+	<AssemblyName>$(MSBuildProjectName)</AssemblyName>
+	<RootNamespace>CustomClassLibrary</RootNamespace>
+	<SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetDir)WinRT.Host.dll $(TargetDir)CSComponent.Host.dll&#xD;&#xA;copy $(TargetDir)WinRT.Host.Shim.dll $(TargetDir)CSComponent.Host.shim.dll&#xD;&#xA;&#xD;&#xA;copy $(TargetDir)WinRT.Host.runtimeconfig.json $(TargetDir)CSComponent.Host.runtimeconfig.json&#xD;&#xA;&#xD;&#xA;copy &quot;$(TargetDir)*.dll&quot; &quot;$(ProjectDir)/../distrib/&quot;&#xD;&#xA;copy &quot;$(TargetDir)*.runtimeconfig.json&quot; &quot;$(ProjectDir)/../distrib/&quot;&#xD;&#xA;del &quot;$(ProjectDir)/../distrib/WinRT.Host.dll&quot;&#xD;&#xA;del &quot;$(ProjectDir)/../distrib/WinRT.Host.runtimeconfig.json&quot;" />
+  </Target>
+
+</Project>
